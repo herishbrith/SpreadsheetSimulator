@@ -1,5 +1,6 @@
 
 import re
+from UnsupportedOperationError import UnsupportedOperationError
 
 from src.SpreadsheetSimulator import SpreadsheetSimulator
 
@@ -26,6 +27,13 @@ class InteractiveShell:
         self.parsedInputSet = None
 
     def validateInput(self, input_str):
+        """
+        Method to validate user input.
+        :params:
+            input_str:                      input string
+        :return:
+            error message or None
+        """
         # process QUIT command
         if input_str == "QUIT":
             print(EXIT_MESSAGE)
@@ -44,6 +52,12 @@ class InteractiveShell:
         return ERROR_MESSAGE
 
     def handleInput(self):
+        """
+        Method to handle input to either get or set value in Spreadsheet simulator.
+        :params:
+        :return:
+            message to be printed
+        """
         message = None
         # process GET command
         if self.parsedInputGet:
@@ -60,19 +74,41 @@ class InteractiveShell:
         return message
 
     def displayMessage(self, message):
-        print(f"{message}\n>")
+        """
+        Method to display message on console.
+        :params:
+            message:                        message to be displayed
+        :return:
+            None
+        """
+        print(f"{message}\n>", end=" ")
 
     def clearVars(self):
+        """
+        Method to clear required instance vars after each operation.
+        :params:
+        :return:
+            None
+        """
         self.parsedInputGet = None
         self.parsedInputSet = None
 
     def startShell(self):
+        """
+        Method to start interactive shell.
+        :params:
+        :return:
+            None
+        """
         # print intro
-        print(INTRO_MESSAGE)
+        print(INTRO_MESSAGE, end="> ")
         # run interactive shell
         while True:
             message = self.validateInput(input().strip())
             if message == None:
-                message = self.handleInput()
+                try:
+                    message = self.handleInput()
+                except UnsupportedOperationError as err:
+                    message = err.message
             self.displayMessage(message)
             self.clearVars()
