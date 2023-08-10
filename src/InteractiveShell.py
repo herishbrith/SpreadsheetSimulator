@@ -36,7 +36,7 @@ class InteractiveShell:
             self.parsedInputGet = isMatchGet
             return
         # validate if SET command was invoked
-        isMatchSet = re.search("^SET ([A-Z]{1,2}\d{1,2}) (.{1,10})$", input_str)
+        isMatchSet = re.search("^SET ([A-Z]{1,2}\d{1,2}) (.*)$", input_str)
         if isMatchSet:
             self.parsedInputSet = isMatchSet
             return
@@ -71,8 +71,7 @@ class InteractiveShell:
         print(INTRO_MESSAGE)
         # run interactive shell
         while True:
-            input_str = input()
-            message = self.validateInput(input_str)
+            message = self.validateInput(input().strip())
             if message == None:
                 message = self.handleInput()
             self.displayMessage(message)
