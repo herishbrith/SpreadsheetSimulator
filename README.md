@@ -47,4 +47,6 @@
     > SET A3 123
     > SET A4 =SUM(A1:A3)
     > SET A8 =A1+A2+A3+A4
+    > GET A8
+    738
     ```
