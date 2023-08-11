@@ -50,3 +50,70 @@
     > GET A8
     738
     ```
+
+## Demo
+
+```
+
+            Welcome to Spreadsheet Simulator!
+
+Use following commands to interact with the shell:
+SET <cellId> <value>
+GET <cellId>
+QUIT
+---
+
+> SET A1 123
+value: 123 set in cell: A1
+> SET A2 123
+value: 123 set in cell: A2
+> SET A3 123
+value: 123 set in cell: A3
+> SET A4 =A1+A2+A3
+value: =A1+A2+A3 set in cell: A4
+> SET A5 =SUM(A1:A3)
+value: =SUM(A1:A3) set in cell: A5
+> GET A4
+369
+> GET A5
+369
+> SET A8 =A1+A2+A3+A4+A5
+value: =A1+A2+A3+A4+A5 set in cell: A8
+> GET A8
+1107
+> SET A3 =A1+A8
+circular dependency found for cellId: A3
+> GET A3
+
+> GET A1
+123
+> GET A8
+738
+> SET A4 =A1&A2
+value: =A1&A2 set in cell: A4
+> GET A4
+unsupported operation: & found
+> GET A4
+unsupported operation: & found
+> GET A*
+wrong command passed
+> GET A8
+unsupported operation: & found
+> GET A1
+123
+> GET A2
+123
+> GET A3
+
+> SET A3 123
+value: 123 set in cell: A3
+> SET A4 =SUM(A1:A3)
+value: =SUM(A1:A3) set in cell: A4
+> GET A4
+369
+> SET A8 =A1+A2+A3+A4
+value: =A1+A2+A3+A4 set in cell: A8
+> GET A8
+738
+>
+```
